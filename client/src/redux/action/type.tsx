@@ -1,0 +1,69 @@
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+
+export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
+export const LOAD_USER_FAIL = "LOAD_USER_FAIL";
+
+export const ALL_USERS_SUCCESS = "ALL_USERS_SUCCESS";
+export const ALL_USERS_FAIL = "ALL_USERS_FAIL";
+
+export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const GET_USER_FAIL = "GET_USER_FAIL";
+
+export const EDIT_SUCCESS = "EDIT_SUCCESS";
+export const EDIT_FAIL = "EDIT_FAIL";
+
+export const SAVED_OP = "SAVED_OP";
+export const FINISH_SAVED_OP = "FINISH_SAVED_OP";
+
+export const EDIT_OP_SUCCESS = "EDIT_OP_SUCCESS";
+export const EDIT_OP_FAIL = "EDIT_OP_FAIL";
+
+export const LOGOUT = "LOGOUT";
+
+export const DELETE_SUCCESS = "DELETE_SUCCESS";
+export const DELETE_FAIL = "DELETE_FAIL";
+
+export const ADD_OP_SUCCESS = "ADD_OP_SUCCESS";
+export const ADD_OP_FAIL = "ADD_OP_FAIL";
+
+export const GET_OP_SUCCESS = "GET_OP_SUCCESS";
+export const GET_OP_FAIL = "GET_OP_FAIL";
+
+export const GET_ONE_OP_SUCCESS = "GET_ONE_OP_SUCCESS";
+export const GET_ONE_OP_FAIL = "GET_ONE_OP_FAIL";
+
+export const DELETE_USER_SUCCESS = "DELETE_USER_SUCCESS";
+export const DELETE_USER_FAIL = "DELETE_USER_FAIL";
+
+export const ADD_COM_SUCCESS = "ADD_COM_SUCCESS";
+export const ADD_COM_FAIL = "ADD_COM_FAIL";
+
+export const ADD_FAV_SUCCESS = "ADD_FAV_SUCCESS";
+export const ADD_FAV_FAIL = "ADD_FAV_FAIL";
+
+export const CANCEL = "CANCEL";
+
+export const REMOVE_FAV_SUCCESS = "REMOVE_FAV_SUCCESS";
+export const REMOVE_FAV_FAIL = "REMOVE_FAV_FAIL";
+
+export const GET_REPORT_SUCCESS = "GET_REPORT_SUCCESS";
+export const GET_REPORT_FAIL = "GET_REPORT_FAIL";
+
+export const ADD_REPORT_SUCCESS = "ADD_REPORT_SUCCESS";
+export const ADD_REPORT_FAIL = "ADD_REPORT_FAIL";
+
+export const DEL_REPORT_SUCCESS = "DEL_REPORT_SUCCESS";
+export const DEL_REPORT_FAIL = "DEL_REPORT_FAIL";
+
+export const GET_MSG_SUCCESS = "GET_MSG_SUCCESS";
+export const ADD_MSG_SUCCESS = "ADD_MSG_SUCCESS";
+
+export const SEARCH_BY_TITLE_SUCCESS = "SEARCH_BY_TITLE_SUCCESS";
+export const SEARCH_BY_TITLE_FAIL = "SEARCH_BY_TITLE_FAIL";
+
+export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
+export const ADD_POST_FAIL = "ADD_POST_FAIL";
