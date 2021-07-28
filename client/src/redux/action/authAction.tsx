@@ -19,9 +19,9 @@ import {
 } from "./type";
 import axios from "axios";
 import { Dispatch } from "redux";
-import setToken from "../../setToken";
 
 import { IState as IProps } from "../../Component/signUp/SignUp";
+import setToken from "../../setToken";
 
 export const registerUser = (infos: IProps['person']) => (dispatch: Dispatch) => {
   axios
@@ -58,7 +58,7 @@ export const getUser = (_id:string) => (dispatch: Dispatch) => {
 };
 
 export const loadUser = () => (dispatch: Dispatch) => {
-  setToken();
+  setToken()
   axios
     .get("/login")
     .then((res) =>
@@ -104,6 +104,11 @@ export const editUser = (_id:string,info:any,file?:any) => async (dispatch: any)
         payload: res.data,
       });
       dispatch(loadUser());
+      dispatch(allUsers());
+      dispatch({
+        type: CANCEL,
+        payload: res.data,
+      });
     })
     .catch((err) => {
       dispatch({

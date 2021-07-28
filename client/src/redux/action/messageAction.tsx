@@ -3,7 +3,7 @@ import {GET_MSG_SUCCESS, ADD_MSG_SUCCESS, CANCEL} from "./type";
   import setToken from "../../setToken";
   
   export const getMessages = () => (dispatch:any) => {
-    setToken();
+    setToken()
     axios
       .get("/message/all_message")
       .then((res) =>

@@ -35,7 +35,7 @@ router.post(
       });
       newPost
         .save()
-        .then((post) => res.status(200).send(post))
+        .then(() => res.status(200).json({ msg:'your post is successfully added'}))
         .catch((err) => {
           console.error(err.message);
           res.status(500).send({ msg: "Server Error" });
@@ -150,7 +150,7 @@ router.get("/:id", (req, res) => {
 //delete post by id
 router.delete("/:id", authMiddleware, (req, res) => {
   Post.findByIdAndRemove({ _id: req.params.id, owner: req.userId })
-    .then(() => res.send("post deleted successfuly"))
+    .then(() => res.json({msg:"post deleted successfully"}))
     .catch((err) => {
       console.error(err.message);
       res.status(500).send({ msg: "Server Error" });
@@ -171,7 +171,7 @@ router.put("/update/:id", [authMiddleware, upload.array("gallery", 10)], (req, r
       owner: req.userId,
       gallery: filesList,
     })
-      .then((data) => res.json(data))
+      .then((data) => res.json({msg:"your post is successfully modified"}))
       .catch((err) => {
         console.error(err.message);
         res.status(500).send({ msg: "Server Error" });
@@ -197,7 +197,7 @@ router.post("/report/new_report/:id", authMiddleware, (req, res) => {
   });
   newReport
     .save()
-    .then((report) => res.status(200).send(report))
+    .then(() => res.status(200).json({msg:'your report has been sent successfully'}))
     .catch((err) => {
       console.error(err.message);
       res.status(500).send({ msg: "Server Error" });

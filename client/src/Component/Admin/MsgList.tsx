@@ -13,10 +13,9 @@ import { useState } from "react";
 const MsgList = () => {
   const dispatch = useDispatch();
   const MsgReducer = useSelector((state:any) => state.MsgReducer);
-  useEffect(() => {
-    dispatch(getMessages());
-  }, [dispatch]);
   const [msgData, setMsgData] = useState(MsgReducer)
+  // console.log(MsgReducer)
+  console.log(msgData)
   const filter = (button:any) => {
     if(button === 'All'){
       return setMsgData(MsgReducer)
@@ -24,7 +23,12 @@ const MsgList = () => {
     const filteredData = MsgReducer.filter((item:any)=>item.read === button )
     setMsgData(filteredData)
   }
-  
+  useEffect(() => {
+    dispatch(getMessages());
+  }, [dispatch]);
+  useEffect(()=>{
+    setMsgData(MsgReducer);
+  }, [MsgReducer]);
   return (
     <div className="msg_container">
       <div

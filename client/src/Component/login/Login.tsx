@@ -29,8 +29,12 @@ const Login: React.FC<any> = ({ history }) => {
   };
   const AuthReducer = useSelector((state:any) => state.AuthReducer);
   useEffect(() => {
-    if (AuthReducer.isAuth) {
-      history.push("/posts");
+    if (AuthReducer.isAuth && AuthReducer.user) {
+      if( AuthReducer.user.type===true){
+        history.push("/admin");
+      } else {
+        history.push("/posts");
+      }
     }
     if (AuthReducer.error) {
       setErrors(AuthReducer.error);
@@ -38,7 +42,7 @@ const Login: React.FC<any> = ({ history }) => {
         setErrors(null);
       }, 3000);
     }
-  }, [AuthReducer.isAuth, AuthReducer.error,history]);
+  }, [AuthReducer.isAuth, AuthReducer.error,history,AuthReducer.user]);
   return (
     <div className="container">
       <br/>

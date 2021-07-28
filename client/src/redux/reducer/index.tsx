@@ -8,8 +8,9 @@ import MsgReducer from "./msgReducer";
 import MyComm from "./myCom";
 import SavedPost from "./savedPost";
 import SuccessMsg from "./successMsg";
+import OneUser from "./oneUser";
 
-const reducers = combineReducers({  AuthReducer,PostReducer,UserReducer,ReportReducer,OnePost,MsgReducer,MyComm,SavedPost,SuccessMsg });
+const reducers = combineReducers({  AuthReducer,PostReducer,UserReducer,ReportReducer,OnePost,MsgReducer,MyComm,SavedPost,SuccessMsg,OneUser });
 
 export default reducers;
 

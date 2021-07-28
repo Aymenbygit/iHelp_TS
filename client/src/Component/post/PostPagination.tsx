@@ -24,7 +24,7 @@ const Table = ({postss}:any) => {
   const [value, setValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [collection, setCollection] = useState(
-    cloneDeep(postss && postss.slice(0, countPerPage))
+    cloneDeep(postss && postss.reverse().slice(0, countPerPage))
   );
   const searchData = useRef(
     throttle((val:any) => {

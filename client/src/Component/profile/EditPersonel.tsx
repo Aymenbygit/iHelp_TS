@@ -85,9 +85,28 @@ const EditPersonel = () => {
       setInfo(AuthReducer.user);
     }
   }, [AuthReducer.user]);
+  const SuccessMsg = useSelector((state:any) => state.SuccessMsg);
+  const [showMsg, setShowMsg] = useState(false);
+  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    if (SuccessMsg) {
+      setMessage(SuccessMsg.msg);
+      setShowMsg(true)
+      setTimeout(() => {
+        setMessage(null);
+        setShowMsg(false)
+      }, 3000);
+    }
+  }, [SuccessMsg]);
   return (
     <ProfileLayout>
       <div className="container">
+      {showMsg && (
+        <div className="success-msg">
+          <i className="fa fa-check"></i>&nbsp;
+          {message}.
+        </div>
+      )}
         <h1 style={{ color: "grey" }}>Personal Information</h1>
         {!toggleEdit ? (
           AuthReducer.user && (

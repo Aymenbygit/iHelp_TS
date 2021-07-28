@@ -136,9 +136,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <section>
+      {/* <section>
         <div>new section</div>
-      </section>
+      </section> */}
     </div>
   );
 };

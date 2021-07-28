@@ -32,12 +32,12 @@ router.put( "/:id",[authMiddleware, upload.single('avatar')] ,
       let path = req.protocol + "://" + req.hostname + ":" + 4000 + "/uploads/" + req.file.filename ;
       let myBody = JSON.parse(req.body.info)
     User.findByIdAndUpdate({_id:req.params.id},{...myBody, avatar: path},(err,msg)=> {
-        err ? console.log(err) : res.json({msg:'user was updated'})
+        err ? console.log(err) : res.json({msg:"We’ve saved your profile changes"})
     })}
     else {
       let myBody = JSON.parse(req.body.info)
       User.findByIdAndUpdate({_id:req.params.id},{$set:{...myBody}},(err,msg)=> {
-      err ? console.log(err) : res.json({msg:'user was updated'})
+      err ? console.log(err) : res.json({msg:"We’ve saved your profile changes"})
    
   })}
   }

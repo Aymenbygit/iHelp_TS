@@ -2,7 +2,7 @@ import {
     ADD_OP_SUCCESS,
     ADD_OP_FAIL,
     GET_OP_SUCCESS,
-    DELETE_SUCCESS,
+    DELETE_POST_SUCCESS,
     EDIT_OP_SUCCESS,
     SAVED_OP,
     EDIT_OP_FAIL,
@@ -58,6 +58,10 @@ import {
           payload: res.data,
         });
         dispatch(getOps());
+        dispatch({
+          type: CANCEL,
+          payload: res.data,
+        });
       })
       .catch((err) =>
         dispatch({
@@ -79,6 +83,10 @@ import {
         payload: res.data,
       });
       dispatch(getOps());
+      dispatch({
+        type: CANCEL,
+        payload: res.data,
+      });
     });
   };
   
@@ -102,11 +110,14 @@ import {
   export const deleteOps = (id:string) => (dispatch: any) => {
     axios.delete(`/post/${id}`).then((res) => {
       dispatch({
-        type: DELETE_SUCCESS,
+        type: DELETE_POST_SUCCESS,
         payload: res.data,
       });
-  
       dispatch(getOps());
+      dispatch({
+        type: CANCEL,
+        payload: res.data,
+      });
     });
   };
   
@@ -128,7 +139,7 @@ import {
       );
   };
   export const addCom = (_id:string, info:any) => (dispatch: any) => {
-    setToken();
+    setToken()
     axios
       .put(`/comment/add/${_id}`, info)
       .then((res) => {

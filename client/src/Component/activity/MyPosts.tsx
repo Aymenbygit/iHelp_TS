@@ -35,9 +35,28 @@ const MyPosts = () => {
     }
   }, [AuthReducer.isAuth, dispatch]);
 
+  const SuccessMsg = useSelector((state:any) => state.SuccessMsg);
+  const [showMsg, setShowMsg] = useState(false);
+  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    if (SuccessMsg) {
+      setMessage(SuccessMsg.msg);
+      setShowMsg(true)
+      setTimeout(() => {
+        setMessage(null);
+        setShowMsg(false)
+      }, 3000);
+    }
+  }, [SuccessMsg]);
   return (
     <div>
       <AcitivityLayout>
+      {showMsg && (
+        <div className="success-msg">
+          <i className="fa fa-check"></i>&nbsp;
+          {message}.
+        </div>
+      )}
         <NewPost />
         {AuthReducer.user &&
           PostList &&

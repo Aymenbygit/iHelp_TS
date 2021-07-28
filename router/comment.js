@@ -10,7 +10,7 @@ const { v4: uuidv4 } = require('uuid');
 //add comment 
 router.put('/add/:id', authMiddleware, (req,res)=> {
     Post.findByIdAndUpdate({_id:req.params.id},{$push:{comments:{_id:uuidv4(),owner:req.userId,...req.body,updatedAt: new Date() }}})
-        .then(() => res.json({ msg: "Comment was added" }))
+        .then(() => res.json({ msg: "your comment is successfully submitted" }))
         .catch((err) => {
           console.error(err.message);
           res.status(500).json({ msg: "Server Error" });

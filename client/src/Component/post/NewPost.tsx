@@ -31,6 +31,7 @@ const NewPost = () => {
           description: "",
           gallery: "",
         });
+        handleFade()
       }
     } else {
       if (!AuthReducer.isAuth) {
@@ -43,7 +44,7 @@ const NewPost = () => {
   };
 
   const [fade, setFade] = useState(false);
-  const handleFade = (e: any) => {
+  const handleFade = () => {
     setFade(!fade);
   };
 

@@ -151,7 +151,7 @@ const Header = (): any => {
   if (AuthReducer.user.type === true) {
     return (
       <div>
-        <Navbar
+        {/* <Navbar
           style={{
             backgroundColor: "#D4F1F4",
             paddingBottom: "12px",
@@ -207,7 +207,7 @@ const Header = (): any => {
               </NavDropdown.Item>
             </NavDropdown>
           </Navbar.Collapse>
-        </Navbar>
+        </Navbar> */}
       </div>
     );
   }
