@@ -1,4 +1,4 @@
-import { ALL_USERS_SUCCESS, GET_USER_SUCCESS } from "../action/type";
+import { ALL_USERS_SUCCESS } from "../action/type";
 
 const UserReducer = (state = [], action:any) => {
   switch (action.type) {

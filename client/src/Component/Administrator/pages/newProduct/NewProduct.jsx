@@ -1,4 +1,4 @@
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import "./newProduct.css";
 
 export default function NewProduct() {

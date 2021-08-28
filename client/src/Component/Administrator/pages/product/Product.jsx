@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "./product.css";
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteOps,
@@ -32,7 +32,7 @@ export default function Product(props) {
     <AdminLayout>
       <div className="product">
         <div className="productTitleContainer">
-          <h1 className="productTitle">Product</h1>
+          <h1 className="productTitle">Posts</h1>
           <Link to="/admin/newproduct">
             <button className="productAddButton">Create</button>
           </Link>
@@ -44,14 +44,17 @@ export default function Product(props) {
                 (el) => (
                   <div className="productFormLeft">
                     <div className="productFormRight">
-                      <button
-                        className="productButton"
-                        onClick={() => {
-                          dispatch(deleteOps(el._id));
-                        }}
-                      >
-                        Delete
-                      </button>
+                      <Link to="/admin/products">
+                        {" "}
+                        <button
+                          className="productButton"
+                          onClick={() => {
+                            dispatch(deleteOps(el._id));
+                          }}
+                        >
+                          Delete
+                        </button>
+                      </Link>
                     </div>
                     <label>Id : {el._id}</label>
                     <label>
@@ -89,9 +92,15 @@ export default function Product(props) {
                     <label>Comments </label>
                     <div style={{ backgroundColor: "#F8F9FA" }}>
                       <div className="container">
-                        <div className="row ">
+                        <div className="row">
                           <div className="col-lg-8">
-                            <h5>{el.comments.length>0 ? (<>{el.comments.length} Comments</>) : ('No comments yet')}</h5>
+                            <h5>
+                              {el.comments.length > 0 ? (
+                                <>{el.comments.length} Comments</>
+                              ) : (
+                                "No comments yet"
+                              )}
+                            </h5>
                           </div>
                         </div>
                         {el.comments.map((ell, i) => (

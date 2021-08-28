@@ -26,7 +26,7 @@ export default function WidgetLg() {
         {PostReducer.reverse()
           .map((el) => (
             <tr>
-              <td >{new Date(el.created_at).toLocaleString()}</td>
+              <td>{new Date(el.created_at).toLocaleString()}</td>
               <td>{el.title}</td>
               <td>
                 {UserReducer &&
@@ -39,8 +39,11 @@ export default function WidgetLg() {
                   )}
               </td>
               <td>
-                <Link to={`/admin/product/${el._id}`} >
-                  <button className="widgetSmButton">Display</button>
+                <Link to={`/admin/product/${el._id}`}>
+                  <button className="widgetSmButton">
+                    <Visibility className="widgetSmIcon" />
+                    Display
+                  </button>
                 </Link>
               </td>
             </tr>

@@ -15,14 +15,15 @@ import {
   Col,
   DropdownButton,
   Dropdown,
+  Button,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NewPost from "../post/NewPost";
 
 const MyPosts = () => {
-  const PostList = useSelector((state:any) => state.PostReducer);
-  const AuthReducer = useSelector((state:any) => state.AuthReducer);
-  const UserReducer = useSelector((state:any) => state.UserReducer);
+  const PostList = useSelector((state: any) => state.PostReducer);
+  const AuthReducer = useSelector((state: any) => state.AuthReducer);
+  const UserReducer = useSelector((state: any) => state.UserReducer);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -35,32 +36,32 @@ const MyPosts = () => {
     }
   }, [AuthReducer.isAuth, dispatch]);
 
-  const SuccessMsg = useSelector((state:any) => state.SuccessMsg);
+  const SuccessMsg = useSelector((state: any) => state.SuccessMsg);
   const [showMsg, setShowMsg] = useState(false);
   const [message, setMessage] = useState(null);
   useEffect(() => {
     if (SuccessMsg) {
       setMessage(SuccessMsg.msg);
-      setShowMsg(true)
+      setShowMsg(true);
       setTimeout(() => {
         setMessage(null);
-        setShowMsg(false)
+        setShowMsg(false);
       }, 3000);
     }
   }, [SuccessMsg]);
   return (
     <div>
       <AcitivityLayout>
-      {showMsg && (
-        <div className="success-msg">
-          <i className="fa fa-check"></i>&nbsp;
-          {message}.
-        </div>
-      )}
+        {showMsg && (
+          <div className="success-msg">
+            <i className="fa fa-check"></i>&nbsp;
+            {message}.
+          </div>
+        )}
         <NewPost />
         {AuthReducer.user &&
           PostList &&
-          PostList.filter((ell:any) => ell.owner === AuthReducer.user._id)
+          PostList.filter((ell: any) => ell.owner === AuthReducer.user._id)
             .length === 0 && (
             <Container>
               <h4 style={{ paddingTop: "20px" }}>No Posts Yet</h4>
@@ -68,14 +69,12 @@ const MyPosts = () => {
           )}
         {AuthReducer.user &&
           PostList &&
-          PostList.filter((ell:any) => ell.owner === AuthReducer.user._id).map(
-            (post:any, i:any) => (
-              <Container key={i} style={{ paddingTop: "20px" }}>
-                <Card>
-                  <Card.Header as="h5">
-                    <Row>
-                      <Col sm={10}>{post.title}</Col>
-                      <Col sm={1}>
+          PostList.filter((ell: any) => ell.owner === AuthReducer.user._id).map(
+            (el: any, i: any) => (
+              <Container key={i}>
+                <div className="Rcard">
+                  <div className="left-container">
+                    <div style={{margin:'10px 0px'}} >
                         {
                           <DropdownButton
                             id="dropdown-button-drop-left"
@@ -85,7 +84,7 @@ const MyPosts = () => {
                           >
                             <Dropdown.Item
                               onClick={() => {
-                                dispatch(deleteOps(post._id));
+                                dispatch(deleteOps(el._id));
                               }}
                             >
                               Delete
@@ -93,9 +92,9 @@ const MyPosts = () => {
                             <Dropdown.Item>
                               <Link
                                 onClick={() => {
-                                  dispatch(getOpsbyId(post._id));
+                                  dispatch(getOpsbyId(el._id));
                                 }}
-                                to={`/edit_post/${post._id}`}
+                                to={`/edit_post/${el._id}`}
                                 style={{ color: "black" }}
                               >
                                 Edit
@@ -103,96 +102,106 @@ const MyPosts = () => {
                             </Dropdown.Item>
                           </DropdownButton>
                         }
-                      </Col>
-                    </Row>
-                  </Card.Header>
-                  <Row>
-                    <Col className="col-md-2" style={{ textAlign: "center" }}>
-                      <Card.Body>
-                        <Card.Text>
-                          {AuthReducer.isAuth ? (
+                    </div>
+                    <hr/>
+                    <div>
+                      <p>
+                        {el.comments.length}&nbsp;<span>comments</span>
+                      </p>{" "}
+                    </div>
+                    {AuthReducer.user ? (
+                      AuthReducer.user.favorites && (
+                        <i
+                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            if (
+                              AuthReducer.user.favorites
+                                .map((el: any) => el._id)
+                                .includes(el._id) === false
+                            ) {
+                              dispatch(
+                                addFav(AuthReducer.user._id, { _id: el._id })
+                              );
+                            } else {
+                              dispatch(
+                                removeFav(AuthReducer.user._id, {
+                                  _id: el._id,
+                                })
+                              );
+                            }
+                          }}
+                        >
+                          {AuthReducer.user.favorites
+                            .map((el: any) => el._id)
+                            .includes(el._id) === false ? (
                             <i
                               style={{ cursor: "pointer" }}
-                              onClick={() => {
-                                if (
-                                  AuthReducer.user.favorites
-                                    .map((ela:any) => ela._id)
-                                    .includes(post._id) === false
-                                ) {
-                                  dispatch(
-                                    addFav(AuthReducer.user._id, {
-                                      _id: post._id,
-                                    })
-                                  );
-                                } else {
-                                  dispatch(
-                                    removeFav(AuthReducer.user._id, {
-                                      _id: post._id,
-                                    })
-                                  );
-                                }
-                              }}
-                            >
-                              {AuthReducer.user.favorites
-                                .map((ela:any) => ela._id)
-                                .includes(post._id) === false ? (
-                                <i
-                                  style={{ cursor: "pointer" }}
-                                  className="far fa-bookmark fa-2x"
-                                ></i>
-                              ) : (
-                                <i
-                                  style={{ cursor: "pointer", color: "red" }}
-                                  className="fas fa-bookmark fa-2x"
-                                ></i>
-                              )}{" "}
-                            </i>
+                              className="far fa-bookmark fa-2x"
+                            ></i>
                           ) : (
-                            <Link to="/login" style={{ color: "black" }}>
-                              {" "}
-                              <i
-                                style={{ cursor: "pointer" }}
-                                className="far fa-bookmark fa-2x"
-                              >
-                                {" "}
-                              </i>
-                            </Link>
-                          )}
-                          {/* {errors && errors.map((el) => <h1>{el.msg}</h1>)} */}
-                        </Card.Text>
-                      </Card.Body>
-                    </Col>
-                    <Col className="col-sm-10">
-                      <Card.Body>
-                <Card.Title> {post.gallery.length} <i className="fas fa-paperclip"></i> attachment</Card.Title>
-                        <Card.Text>
+                            <i
+                              style={{ cursor: "pointer", color: "red" }}
+                              className="fas fa-bookmark fa-2x"
+                            ></i>
+                          )}{" "}
+                        </i>
+                      )
+                    ) : (
+                      <Link to="/login" style={{ color: "black" }}>
+                        {" "}
+                        <i
+                          style={{ cursor: "pointer" }}
+                          className="far fa-bookmark fa-2x"
+                        >
                           {" "}
-                          {post.description.length > 150
-                            ? post.description.slice(0, 150) + "... "
-                            : post.description}
-                          {post.description.length > 150 && (
-                            <Link to={`/posts/${post._id}`}>read more</Link>
-                          )}
-                        </Card.Text>
-                      </Card.Body>
-                    </Col>
-                  </Row>
-                  <Card.Footer className="text-muted">
-                    {new Date(post.created_at).toLocaleString()} || asked by{" "}
-                    {UserReducer &&
-                      UserReducer.filter((user:any) => user._id === post.owner).map(
-                        (xx:any, i:any) => (
-                          <Link to={`/user/${xx._id}`} key={i}>
-                            {xx.username}
+                        </i>
+                      </Link>
+                    )}
+                  </div>
+                  <div className="Rcard-content">
+                    <h5>{el.title}</h5>
+                    <h6>
+                      {el.gallery.length > 0 && (
+                        <div>
+                          {" "}
+                          {el.gallery.length}{" "}
+                          <i className="fas fa-paperclip"></i> attachment
+                        </div>
+                      )}
+                    </h6>
+                    <p className="excerpt">
+                      {el.description.length > 150
+                        ? el.description.slice(0, 150) + "... "
+                        : el.description}
+                      {el.description.length > 150 && (
+                        <a href={`/posts/${el._id}`}>read more</a>
+                      )}
+                    </p>
+                    <p className="excerpt">
+                      <a href={`/posts/${el._id}`}>
+                        <Button
+                          variant="primary"
+                          onClick={() => {
+                            dispatch(getOpsbyId(el._id));
+                          }}
+                        >
+                          <i className="far fa-comment-alt"></i> Comment
+                        </Button>
+                      </a>
+                    </p>
+                    <p className="author text-muted">
+                      {new Date(el.created_at).toLocaleString()} || asked by{" "}
+                      {UserReducer &&
+                        UserReducer.filter(
+                          (user: any) => user._id === el.owner
+                        ).map((el: any, i: any) => (
+                          <Link to={`/user/${el._id}`} key={i}>
+                            <i key={i}>{el.username}</i>
                           </Link>
-                        )
-                      )}{" "}
-                    ||
-                    <Link to={`/posts/${post._id}`}>
-                      {post.comments.length} comments
-                    </Link>
-                  </Card.Footer>
-                </Card>
+                        ))}
+                    </p>
+                  </div>
+                </div>
                 <hr />
               </Container>
             )

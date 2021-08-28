@@ -16,7 +16,7 @@ export default function WidgetSm() {
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
         {UserReducer &&
-          UserReducer.reverse().map((el) => (
+          UserReducer.map((el) => (
             <>
               <li className="widgetSmListItem">
                 <img src={el.avatar} alt="" className="widgetSmImg" />
@@ -35,8 +35,8 @@ export default function WidgetSm() {
               </li>
             </>
           ))
-            .slice(0, 5)
-            }
+            .reverse()
+            .slice(0, 5)}
       </ul>
     </div>
   );

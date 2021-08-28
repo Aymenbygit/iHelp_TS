@@ -35,7 +35,12 @@ export const deleteRaport = (_id: string) => (dispatch: any) => {
   axios.delete(`/post/report/delete/${_id}`).then((res) => {
     dispatch({
       type: DEL_REPORT_SUCCESS,
+      payload: res.data
     });
     dispatch(getReports());
+    dispatch({
+      type: CANCEL,
+      payload: res.data,
+    });
   });
 };

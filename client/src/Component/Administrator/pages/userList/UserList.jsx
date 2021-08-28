@@ -1,22 +1,24 @@
 import "./userList.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline, Visibility } from "@material-ui/icons";
-import { userRows } from "../../dummyData";
+import { Visibility } from "@material-ui/icons";
 import { Link } from "react-router-dom";
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import React, { useEffect, useRef, useState } from "react";
 import cloneDeep from "lodash/cloneDeep";
 import throttle from "lodash/throttle";
 import Pagination from "rc-pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { allUsers, getUser, loadUser } from "../../../../redux/action/authAction";
+import {
+  allUsers,
+  getUser,
+  loadUser,
+} from "../../../../redux/action/authAction";
 import { getOps } from "../../../../redux/action/postAction";
 
 const UsersList = () => {
   const dispatch = useDispatch();
   const AuthReducer = useSelector((state) => state.AuthReducer);
   const UserReducer = useSelector((state) => state.UserReducer);
-  const countPerPage = 8;
+  const countPerPage = 7;
   const [value, setValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [collection, setCollection] = useState(
@@ -78,29 +80,38 @@ const UsersList = () => {
             </tr>
           </thead>
           <tbody>
-            {collection.map((el) => (
-              <tr>
-                <th scope="row">
-                  <img
-                    src={el.avatar}
-                    alt="avatar"
-                    style={{ width: "50px", borderRadius: "50%" }}
-                  />
-                </th>
-                <td>
-                  {el.first_name} {el.last_name}
-                </td>
-                <td>{el.email}</td>
-                <td>
-                  <Link to={`/admin/user/${el._id}`}>
-                    <button className="widgetSmButton" onClick={()=>dispatch(getUser(el._id))} >
-                      <Visibility className="widgetSmIcon" />
-                      Display
-                    </button>
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            {collection
+              .map((el) => (
+                <tr>
+                  <th scope="row">
+                    <img
+                      src={el.avatar}
+                      alt="avatar"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </th>
+                  <td>
+                    {el.first_name} {el.last_name}
+                  </td>
+                  <td>{el.email}</td>
+                  <td>
+                    <Link to={`/admin/user/${el._id}`}>
+                      <button
+                        className="widgetSmButton"
+                        onClick={() => dispatch(getUser(el._id))}
+                      >
+                        <Visibility className="widgetSmIcon" />
+                        Display
+                      </button>
+                    </Link>
+                  </td>
+                </tr>
+              ))
+              .reverse()}
           </tbody>
         </table>
       </>

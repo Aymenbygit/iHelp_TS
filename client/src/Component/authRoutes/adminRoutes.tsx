@@ -5,15 +5,21 @@ import { loadUser } from "../../redux/action/authAction";
 
 const AdminRoutes = ({ component: Component, ...rest }: any) => {
   const AuthReducer = useSelector((state: any) => state.AuthReducer);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-      dispatch(loadUser())
-  }, [])
+    dispatch(loadUser());
+  }, []);
   return (
     <Route
       {...rest}
       render={(props: any) =>
-        AuthReducer.isAuth && AuthReducer.user && AuthReducer.user.type===true ? <Component {...props} /> : <Redirect to="/login" />
+        AuthReducer.isAuth &&
+        AuthReducer.user &&
+        AuthReducer.user.type === true ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/login" />
+        )
       }
     />
   );

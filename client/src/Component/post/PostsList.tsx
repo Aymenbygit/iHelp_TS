@@ -34,6 +34,7 @@ const PostsList = ({ search, postss }:any) => {
       }, 3000);
     }
   }, [SuccessMsg]);
+  console.log(message)
   return (
     <div>
       {showMsg && (
@@ -61,7 +62,7 @@ const PostsList = ({ search, postss }:any) => {
           {postss && postss.length} posts
         </h2>{" "}
       </Container>
-      <PostPagination search={search} postss={postss} />
+      <PostPagination search={search} postss={postss.reverse()} />
     </div>
   );
 };

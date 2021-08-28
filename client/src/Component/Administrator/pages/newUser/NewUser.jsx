@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { allUsers } from "../../../../redux/action/authAction";
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import "./newUser.css";
 
 export default function NewUser() {

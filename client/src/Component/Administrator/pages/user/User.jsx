@@ -10,15 +10,21 @@ import {
   Work,
   GitHub,
   Facebook,
-  SupervisorAccount
+  SupervisorAccount,
+  Cancel,
 } from "@material-ui/icons";
 import InfoIcon from "@material-ui/icons/Info";
 import { Link } from "react-router-dom";
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import "./user.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { allUsers, editUser, getUser } from "../../../../redux/action/authAction";
+import {
+  allUsers,
+  editUser,
+  getUser,
+} from "../../../../redux/action/authAction";
+import Avatar from "../../avatar.png";
 
 export default function User(props) {
   const AuthReducer = useSelector((state) => state.AuthReducer);
@@ -43,6 +49,10 @@ export default function User(props) {
   const selectImageToUpload = (e) => {
     setFile(e.target.files[0]);
   };
+  const updateNow = (e) => {
+    e.preventDefault();
+    dispatch(editUser(OneUser._id, info, file));
+  };
   useEffect(() => {
     dispatch(allUsers());
     dispatch(getUser(props.match.params.id));
@@ -63,15 +73,32 @@ export default function User(props) {
     else {
       setInfo(OneUser);
     }
-  }, [AuthReducer.user,UserReducer,OneUser]);
-  console.log(info)
-  const updateNow = (e) => {
-    e.preventDefault();
-    dispatch(editUser(OneUser._id, info, file));
-  };
+  }, [AuthReducer.user, UserReducer, OneUser]);
+
+  const SuccessMsg = useSelector((state) => state.SuccessMsg);
+  const [showMsg, setShowMsg] = useState(false);
+  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    if (SuccessMsg) {
+      setMessage(SuccessMsg.msg);
+      setShowMsg(true);
+      setTimeout(() => {
+        setMessage(null);
+        setShowMsg(false);
+      }, 3000);
+    }
+  }, [SuccessMsg]);
+  console.log({ message });
   return (
     <AdminLayout>
       <div className="user">
+        {" "}
+        {showMsg && (
+          <div className="success-msg">
+            <i className="fa fa-check"></i>&nbsp;
+            {message}.
+          </div>
+        )}
         <div className="userTitleContainer">
           <h1 className="userTitle">Edit User</h1>
           <Link to="/admin/newUser">
@@ -96,7 +123,9 @@ export default function User(props) {
                     <span className="userShowTitle">Account Details</span>
                     <div className="userShowInfo">
                       <SupervisorAccount className="userShowIcon" />
-                      <span className="userShowInfoTitle">{user.type ? 'Admin' : 'Simple user' }</span>
+                      <span className="userShowInfoTitle">
+                        {user.type ? "Admin" : "Simple user"}
+                      </span>
                     </div>
                     <div className="userShowInfo">
                       <PermIdentity className="userShowIcon" />
@@ -136,19 +165,27 @@ export default function User(props) {
                     </div>
                     <div className="userShowInfo">
                       <MailOutline className="userShowIcon" />
-                      <span className="userShowInfoTitle"><a href={`mailto:${user.email}`} >{user.email}</a></span>
+                      <span className="userShowInfoTitle">
+                        <a href={`mailto:${user.email}`}>{user.email}</a>
+                      </span>
                     </div>
                     <div className="userShowInfo">
                       <Facebook className="userShowIcon" />
-                      <span className="userShowInfoTitle"><Link to={user.fb} >{user.fb}</Link></span>
+                      <span className="userShowInfoTitle">
+                        <Link to={user.fb}>{user.fb}</Link>
+                      </span>
                     </div>
                     <div className="userShowInfo">
                       <GitHub className="userShowIcon" />
-                      <span className="userShowInfoTitle"><Link to={user.git} >{user.git}</Link></span>
+                      <span className="userShowInfoTitle">
+                        <Link to={user.git}>{user.git}</Link>
+                      </span>
                     </div>
                     <div className="userShowInfo">
                       <LinkedIn className="userShowIcon" />
-                      <span className="userShowInfoTitle"><Link to={user.linkedin} >{user.linkedin}</Link></span>
+                      <span className="userShowInfoTitle">
+                        <Link to={user.linkedin}>{user.linkedin}</Link>
+                      </span>
                     </div>
                     <div className="userShowInfo">
                       <LocationSearching className="userShowIcon" />
@@ -175,8 +212,8 @@ export default function User(props) {
                           value={info.type}
                           onChange={handleChange}
                         >
-                        <option value={true}>Admin</option>
-                        <option value={false}>Simple User</option>
+                          <option value={true}>Admin</option>
+                          <option value={false}>Simple User</option>
                         </select>
                       </div>
                       <div className="userUpdateItem">
@@ -215,9 +252,9 @@ export default function User(props) {
                           value={info.gender}
                           onChange={handleChange}
                         >
-                        <option value="">--</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                          <option value="">--</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
                         </select>
                       </div>
                       <div className="userUpdateItem">
@@ -263,9 +300,20 @@ export default function User(props) {
                         <label htmlFor="file">
                           <Publish className="userUpdateIcon" />
                         </label>
-                        <input style={{ display: "none" }} id="file" type="file" name="avatar" onChange={selectImageToUpload} />
+                        <label>
+                          <Cancel className="userUpdateIcon" />
+                        </label>
+                        <input
+                          style={{ display: "none" }}
+                          id="file"
+                          type="file"
+                          name="avatar"
+                          onChange={selectImageToUpload}
+                        />
                       </div>
-                      <button className="userUpdateButton" onClick={updateNow} >Update</button>
+                      <button className="userUpdateButton" onClick={updateNow}>
+                        Update
+                      </button>
                     </div>
                   </form>
                 </div>

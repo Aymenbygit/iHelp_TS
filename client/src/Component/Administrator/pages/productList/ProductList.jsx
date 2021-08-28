@@ -1,10 +1,7 @@
 import "./productList.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../dummyData";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
-import AdminLayout from "../../../Admin/AdminLayout";
+import AdminLayout from "../../AdminLayout";
 import cloneDeep from "lodash/cloneDeep";
 import throttle from "lodash/throttle";
 import Pagination from "rc-pagination";
@@ -106,10 +103,28 @@ export default function ProductList() {
       </>
     );
   };
-
+  const SuccessMsg = useSelector((state) => state.SuccessMsg);
+  const [showMsg, setShowMsg] = useState(false);
+  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    if (SuccessMsg) {
+      setMessage(SuccessMsg.msg);
+      setShowMsg(true);
+      setTimeout(() => {
+        setMessage(null);
+        setShowMsg(false);
+      }, 3000);
+    }
+  }, [SuccessMsg]);
   return (
     <AdminLayout>
       <div className="productList">
+      {showMsg && (
+          <div className="success-msg">
+            <i className="fa fa-check"></i>&nbsp;
+            {message}.
+          </div>
+        )}
         {collection && tableData()}
         <nav>
           <ul className="pagination justify-content-center">

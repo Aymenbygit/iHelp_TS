@@ -1,0 +1,60 @@
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lightgallery.css');
+@import url('https://cdn.jsdelivr.net/npm/lightgallery@2.0.0-beta.4/css/lg-zoom.css');
+
+body {
+  margin: 0;
+}
+.gallery-item {
+  margin: 5px;
+}
+
+.Rcontainer {
+  background-color: #D7CCC8;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.Rcard {
+  background-color: #fff;
+  max-width: 1200px;
+  box-shadow: 2px 2px 5px #9E9E9E, -1px -1px 5px #9E9E9E;
+  border-radius: 3px;
+  display: grid;
+  
+}
+.Rcard .left-container {
+  text-align: center;
+  width: 120px;
+  height: 100%;
+  grid-column: 2;
+  background-color: whitesmoke;
+  background-position: center;
+}
+.Rcard-content {
+  grid-column: 3 / 5;
+  padding: 10px 30px;
+  border-left: 1px solid #ccc;
+}
+
+.Rcard-content .author {
+  border-top: 1px solid #cdcdcd;
+  font-weight: 600;
+  margin-top: 25px;
+  padding: 25px 0 10px 0;
+  color: #555;
+}
+
+@media only screen and (max-width:600px) {
+  .Rcard {
+    display: block;
+  }
+  .Rcard .left-container {
+    height: 100px;
+    width: 100%;
+  }
+  .Rcard-content {
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+}

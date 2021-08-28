@@ -65,15 +65,15 @@ const UserList = ({ search, users }:any) => {
   };
   const tableData = () => {
     return collection.map((el:any, i:any) => (
-      <div style={{ paddingTop: "30px" }} className="col-md-3 " key={i}>
+      <div style={{ paddingTop: "30px" }} className="col-lg-3 " key={i}>
         <div className="user__card">
-          <img src={el.avatar} alt="avatar" style={{ width: "100%" }} />
+          <img src={el.avatar} alt="avatar" style={{ width: "100%",height:'180px' }} />
           <h5>
             {el.first_name} {el.last_name}
           </h5>
           <p className="user_title">{el.username ? el.username : "--"}</p>
           <a
-            href="mailto:{el.email}"
+            href={`mailto:${el.email}`}
             target="_blank"
             rel="noreferrer"
             className="user_a"

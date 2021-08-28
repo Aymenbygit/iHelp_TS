@@ -48,12 +48,15 @@ export const allUsers = () => (dispatch: Dispatch) => {
   );
 };
 
-export const getUser = (_id:string) => (dispatch: Dispatch) => {
-  axios.get(`/login/user/${_id}`).then((res) =>
+export const getUser = (_id:string) => (dispatch: any) => {
+  axios.get(`/login/user/${_id}`)
+  .then((res) =>{
     dispatch({
       type: GET_USER_SUCCESS,
       payload: res.data,
-    })
+    });
+    dispatch(allUsers())
+  }
   );
 };
 

@@ -13,7 +13,7 @@ import {
 } from "../../redux/action/authAction";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "../Admin/user.css";
+import "../users/user.css";
 
 const Table = ({postss}:any) => {
 
@@ -24,7 +24,7 @@ const Table = ({postss}:any) => {
   const [value, setValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [collection, setCollection] = useState(
-    cloneDeep(postss && postss.reverse().slice(0, countPerPage))
+    cloneDeep(postss && postss.slice(0, countPerPage))
   );
   const searchData = useRef(
     throttle((val:any) => {
@@ -70,100 +70,85 @@ const Table = ({postss}:any) => {
   };
 
   const tableData = () => {
-    return collection.map((el:any, i:any) => (
-      <Container key={i}>
-        <Card>
-          <Card.Header as="h5">
-            <Row>
-              <Col sm={11}>{el.title}</Col>
-              {AuthReducer.user &&
-              AuthReducer.user.type &&
-              AuthReducer.user.type === true ? (
-                <Col sm={1}>
-                  {
-                    <i
-                      style={{ cursor: "pointer" }}
-                      className="fas fa-trash-alt"
-                      onClick={() => {
-                        dispatch(deleteOps(el._id));
-                      }}
-                    ></i>
-                  }
-                </Col>
-              ) : (
-                ""
-              )}
-            </Row>
-          </Card.Header>
-          <Row>
-            <Col className="col-lg-2" style={{ textAlign: "center" }}>
-              <Card.Body>
-                <Card.Text>
-                  {el.comments.length} <span>comments</span>{" "}
-                </Card.Text>
-                <Card.Text>
-                  {AuthReducer.user ? (
-                    AuthReducer.user.favorites && (
-                      <i
-                        style={{ cursor: "pointer" }}
-                        onClick={() => {
-                          if (
-                            AuthReducer.user.favorites
-                              .map((el:any) => el._id)
-                              .includes(el._id) === false
-                          ) {
-                            dispatch(
-                              addFav(AuthReducer.user._id, { _id: el._id })
-                            );
-                          } else {
-                            dispatch(
-                              removeFav(AuthReducer.user._id, {
-                                _id: el._id,
-                              })
-                            );
-                          }
-                        }}
-                      >
-                        {AuthReducer.user.favorites
-                          .map((el:any) => el._id)
-                          .includes(el._id) === false ? (
-                          <i
-                            style={{ cursor: "pointer" }}
-                            className="far fa-bookmark fa-2x"
-                          ></i>
-                        ) : (
-                          <i
-                            style={{ cursor: "pointer", color: "red" }}
-                            className="fas fa-bookmark fa-2x"
-                          ></i>
-                        )}{" "}
-                      </i>
-                    )
-                  ) : (
-                    <Link to="/login" style={{ color: "black" }}>
-                      {" "}
+    return collection.map((el: any, i: any) => (
+        <Container key={i}>
+          <div className="Rcard">
+            <div className="left-container">
+              <div>
+                <p>
+                  {el.comments.length}&nbsp;<span>comments</span>
+                </p>{" "}
+              </div>
+              {AuthReducer.user ? (
+                AuthReducer.user.favorites && (
+                  <i
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      if (
+                        AuthReducer.user.favorites
+                          .map((el: any) => el._id)
+                          .includes(el._id) === false
+                      ) {
+                        dispatch(
+                          addFav(AuthReducer.user._id, { _id: el._id })
+                        );
+                      } else {
+                        dispatch(
+                          removeFav(AuthReducer.user._id, {
+                            _id: el._id,
+                          })
+                        );
+                      }
+                    }}
+                  >
+                    {AuthReducer.user.favorites
+                      .map((el: any) => el._id)
+                      .includes(el._id) === false ? (
                       <i
                         style={{ cursor: "pointer" }}
                         className="far fa-bookmark fa-2x"
-                      >
-                        {" "}
-                      </i>
-                    </Link>
-                  )}
-                </Card.Text>
-              </Card.Body>
-            </Col>
-            <Col className="col-sm-10">
-              <Card.Body>
-                {el.gallery.length>0 && <Card.Title> {el.gallery.length} <i className="fas fa-paperclip"></i> attachment</Card.Title>}
-                <Card.Text>
-                  {el.description.length > 150
-                    ? el.description.slice(0, 150) + "... "
-                    : el.description}
-                  {el.description.length > 150 && (
-                    <a href={`/posts/${el._id}`}>read more</a>
-                  )}
-                </Card.Text>
+                      ></i>
+                    ) : (
+                      <i
+                        style={{ cursor: "pointer", color: "red" }}
+                        className="fas fa-bookmark fa-2x"
+                      ></i>
+                    )}{" "}
+                  </i>
+                )
+              ) : (
+                <Link to="/login" style={{ color: "black" }}>
+                  {" "}
+                  <i
+                    style={{ cursor: "pointer" }}
+                    className="far fa-bookmark fa-2x"
+                  >
+                    {" "}
+                  </i>
+                </Link>
+              )}
+            </div>
+            <div className="Rcard-content">
+              <h5>{el.title}</h5>
+              <h6>
+                {el.gallery.length > 0 && (
+                  <div>
+                    {" "}
+                    {
+                      el.gallery.length
+                    } <i className="fas fa-paperclip"></i> attachment
+                  </div>
+                )}
+              </h6>
+              <p className="excerpt">
+                {el.description.length > 150
+                  ? el.description.slice(0, 150) + "... "
+                  : el.description}
+                {el.description.length > 150 && (
+                  <a href={`/posts/${el._id}`}>read more</a>
+                )}
+              </p>
+              <p className="excerpt">
                 <a href={`/posts/${el._id}`}>
                   <Button
                     variant="primary"
@@ -174,24 +159,23 @@ const Table = ({postss}:any) => {
                     <i className="far fa-comment-alt"></i> Comment
                   </Button>
                 </a>
-              </Card.Body>
-            </Col>
-          </Row>
-          <Card.Footer className="text-muted">
-            {new Date(el.created_at).toLocaleString()} || asked by{" "}
-            {UserReducer &&
-              UserReducer.filter((user:any) => user._id === el.owner).map(
-                (el:any, i:any) => (
-                  <Link to={`/user/${el._id}`} key={i}>
-                    <i key={i}>{el.username}</i>
-                  </Link>
-                )
-              )}{" "}
-          </Card.Footer>
-        </Card>
-        <hr />
-      </Container>
-    ));
+              </p>
+              <p className="author text-muted">
+                {new Date(el.created_at).toLocaleString()} || asked by{" "}
+                {UserReducer &&
+                  UserReducer.filter(
+                    (user: any) => user._id === el.owner
+                  ).map((el: any, i: any) => (
+                    <Link to={`/user/${el._id}`} key={i}>
+                      <i key={i}>{el.username}</i>
+                    </Link>
+                  ))}
+              </p>
+            </div>
+          </div>
+          <hr />
+        </Container>
+      ))
   };
 
   return (
@@ -205,7 +189,6 @@ const Table = ({postss}:any) => {
             onChange={updatePage}
             current={currentPage}
             total={postss && postss.length}
-            // onClick={scrollToTop()}
           />
         </ul>
       </nav>

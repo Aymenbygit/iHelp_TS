@@ -1,97 +1,50 @@
-body {
-    background: #ece5da;
-    font-family: 'Raleway', sans-serif;
-  }
+/* 
+.Rcontainer {
+  background-color: #D7CCC8;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.Rcard {
+  background-color: #fff;
+  max-width: 1200px;
+  box-shadow: 2px 2px 5px #9E9E9E, -1px -1px 5px #9E9E9E;
+  border-radius: 3px;
+  display: grid;
   
-  nav {
-    margin: auto;
-    margin-top: 40px;
-    position: relative;
-    width: 50vw;
-    min-width: 320px;
-    height: 200px;
-  }
-  
-  nav h2 {
-    border-radius: 2px;
-    position: relative;
-    background: tomato;
-    height: 40px;
-    text-transform: uppercase;
-    color: ivory;
-    font-weight: 200;
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 4px 4px 20px -2px rgba(0,0,0,.35);
-    transition: all .4s;
-  }
-  
-  nav:hover h2{
-    transform: translateY(-2px);
-    box-shadow: 2px 2px 5px -1px rgba(0,0,0,.35);
-   }
-  nav:hover:active h2{
-    transform: translateY(10px);
-    box-shadow: 0px -1px 2px 0px rgba(0,0,0,.35);
-   }
-  
-  input {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    z-index: 1;
-    opacity: 0;
-    cursor: pointer;
-    height: 40px;
-  }
-  
-  #toggle:checked ~ul {
-    height: 0%;
-  }
-  
-  nav ul {
-    padding-left: 0;
-    padding-top: 0;
-    margin-top: 0;
-    list-style: none;
-    overflow: hidden;
-    text-align: right;
-    margin-bottom: 22px;
-    text-align: center;
-    transition: all .4s ease-out;
-    height: 100%;
-    
-  }
-  nav ul li {
-    border-radius: 2px;
-    position: relative;
-    display: inline-block;
-    margin-left: 35px;
-    line-height: 1.5;
-    width: 100%;
-    margin: 0;
-    margin-bottom: 5px;
-    background: tomato;
-    transition: background 3s;
-    box-shadow: 2px 2px 10px -2px rgba(0,0,0,.35);
-  }
-  
-  nav ul li:hover {
-    background: mediumorchid;
-    transition: background .45s;
-  }
-  
-  nav ul a {
+}
+.Rcard .left-container {
+  text-align: center;
+  width: 120px;
+  height: 100%;
+  grid-column: 2;
+  background-color: whitesmoke;
+  background-position: center;
+}
+.Rcard-content {
+  grid-column: 3 / 5;
+  padding: 10px 30px;
+  border-left: 1px solid #ccc;
+}
+.Rcard-content .author {
+  border-top: 1px solid #cdcdcd;
+  font-weight: 600;
+  margin-top: 25px;
+  padding: 25px 0 10px 0;
+  color: #555;
+}
+
+@media only screen and (max-width:600px) {
+  .Rcard {
     display: block;
-    color: ivory;
-    text-transform: lowercase;
-    font-size: 18px;
-    font-weight: 200;
-    text-decoration: none;
-    transition: color .3s;
   }
-  
-  
+  .Rcard .left-container {
+    height: 100px;
+    width: 100%;
+  }
+  .Rcard-content {
+    border: 0;
+    border-top: 1px solid #ccc;
+  }
+} */
