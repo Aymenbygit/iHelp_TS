@@ -4,6 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "heroku-prebuild": "npm run build",
     "server": "nodemon server.js",
     "start": "concurrently \"npm run server\" \"cd client && npm start\"",
     "heroku-postbuild": "cd client && npm install && npm run build"
