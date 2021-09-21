@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../helpers/authMiddleware");
-const Post = require("../models/post");
+const Post = require("../models/Post");
 const Report = require("../models/Report");
 const multer = require("multer");
 
@@ -35,7 +35,9 @@ router.post(
       });
       newPost
         .save()
-        .then(() => res.status(200).json({ msg:'your post is successfully added'}))
+        .then(() =>
+          res.status(200).json({ msg: "your post is successfully added" })
+        )
         .catch((err) => {
           console.error(err.message);
           res.status(500).send({ msg: "Server Error" });
@@ -44,7 +46,7 @@ router.post(
       let myBody = JSON.parse(req.body.info);
       let newPost = new Post({
         ...myBody,
-        owner: req.userId
+        owner: req.userId,
       });
       newPost
         .save()
@@ -150,7 +152,7 @@ router.get("/:id", (req, res) => {
 //delete post by id
 router.delete("/:id", authMiddleware, (req, res) => {
   Post.findByIdAndRemove({ _id: req.params.id, owner: req.userId })
-    .then(() => res.json({msg:"post deleted successfully"}))
+    .then(() => res.json({ msg: "post deleted successfully" }))
     .catch((err) => {
       console.error(err.message);
       res.status(500).send({ msg: "Server Error" });
@@ -158,35 +160,40 @@ router.delete("/:id", authMiddleware, (req, res) => {
 });
 
 //edit post by id
-router.put("/update/:id", [authMiddleware, upload.array("gallery", 10)], (req, res) => {
-
-  if (req.files) {
-    let filesList = req.files.map(
-      (file) =>
-        (path = `${req.protocol}://${req.hostname}:4000/uploads/${file.filename}`)
-    );
-    let myBody = JSON.parse(req.body.info);
-    Post.findByIdAndUpdate({ _id: req.params.id }, {
-      ...myBody,
-      owner: req.userId,
-      gallery: filesList,
-    })
-      .then((data) => res.json({msg:"your post is successfully modified"}))
-      .catch((err) => {
-        console.error(err.message);
-        res.status(500).send({ msg: "Server Error" });
-      });
-  } else {
-    let myBody = JSON.parse(req.body.info);
-    Post.findByIdAndUpdate({ _id: req.params.id }, { ...myBody })
-      .then((data) => res.json(data))
-      .catch((err) => {
-        console.error(err.message);
-        res.status(500).send({ msg: "Server Error" });
-      });
+router.put(
+  "/update/:id",
+  [authMiddleware, upload.array("gallery", 10)],
+  (req, res) => {
+    if (req.files) {
+      let filesList = req.files.map(
+        (file) =>
+          (path = `${req.protocol}://${req.hostname}:4000/uploads/${file.filename}`)
+      );
+      let myBody = JSON.parse(req.body.info);
+      Post.findByIdAndUpdate(
+        { _id: req.params.id },
+        {
+          ...myBody,
+          owner: req.userId,
+          gallery: filesList,
+        }
+      )
+        .then((data) => res.json({ msg: "your post is successfully modified" }))
+        .catch((err) => {
+          console.error(err.message);
+          res.status(500).send({ msg: "Server Error" });
+        });
+    } else {
+      let myBody = JSON.parse(req.body.info);
+      Post.findByIdAndUpdate({ _id: req.params.id }, { ...myBody })
+        .then((data) => res.json(data))
+        .catch((err) => {
+          console.error(err.message);
+          res.status(500).send({ msg: "Server Error" });
+        });
+    }
   }
-});
-
+);
 
 //add report
 router.post("/report/new_report/:id", authMiddleware, (req, res) => {
@@ -197,7 +204,9 @@ router.post("/report/new_report/:id", authMiddleware, (req, res) => {
   });
   newReport
     .save()
-    .then(() => res.status(200).json({msg:'your report has been sent successfully'}))
+    .then(() =>
+      res.status(200).json({ msg: "your report has been sent successfully" })
+    )
     .catch((err) => {
       console.error(err.message);
       res.status(500).send({ msg: "Server Error" });
@@ -243,6 +252,5 @@ router.get("/search", (req, res) => {
       res.status(500).send({ msg: "Server Error" });
     });
 });
-
 
 module.exports = router;
